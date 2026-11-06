@@ -16,6 +16,8 @@ Instructors manage students, companies, and co-op records in one place. Students
 
 **Status:** Deployed and waiting for the department to import its data.
 
+**Live site:** [Public company search](https://cscoop.comsciproject.net/public/search). The site is waiting for its data, so the list may be empty.
+
 ## The challenge
 
 The system was built with Next.js, React, and Prisma, but it had to move to hosting that accepts files over FTP, without Node.js or Composer.
@@ -26,9 +28,32 @@ The system was built with Next.js, React, and Prisma, but it had to move to host
 - Data import through manual entry and Excel upload, with validation before saving
 - A custom `.xlsx` reader, because Composer was not available
 - Filters, CSV export, and delete confirmation
-- Separate instructor, student, admin, and super admin access, with activity logs
+- Separate public, student, instructor, and super admin access, with activity logs
 - An API for connecting with other websites
 - Deployment, handover documents, and a user guide
+
+## Access by role
+
+| What each role can do | Public | Student | Instructor | Super admin |
+|---|:---:|:---:|:---:|:---:|
+| Search companies | Yes | Yes | Yes | Yes |
+| See positions past students held | – | Yes | Yes | Yes |
+| Manage companies, students, and co-op records | – | – | Yes | Yes |
+| Import data from Excel and export CSV | – | – | Yes | Yes |
+| Manage instructor accounts | – | – | – | Yes |
+| View activity logs | – | – | – | Yes |
+
+## System overview
+
+```mermaid
+flowchart LR
+    public["Public visitors"] --> app
+    student["Students"] --> app
+    staff["Instructors and super admins"] --> app
+    excel["Excel files"] --> check["Validation"] --> app
+    other["Other websites"] --> api["Protected API"] --> app
+    app["PHP application"] --> db[("MariaDB")]
+```
 
 ## Hardest part
 
