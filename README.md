@@ -1,4 +1,5 @@
 # CS-Coop
+Showcase of CS-Coop, a cooperative education management system built with PHP 8.2 and MariaDB.
 
 A system for managing students, companies, and co-op placements in a Computer Science department.
 
